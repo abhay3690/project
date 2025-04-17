@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TodoDto;
 import com.example.demo.model.User;
+import com.example.demo.service.TodoClientService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TodoClientService todoClientService;
 
     @GetMapping("/")
     public List<User> getAllUsers(){
@@ -34,6 +39,11 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
+    }
+
+    @GetMapping("/todo")
+    public List<TodoDto> getTodos() {
+        return todoClientService.getAllTodos();
     }
 
 }
